@@ -1,0 +1,12 @@
+if TARGET_AM3517_SCEPTER
+
+config SYS_BOARD
+	default "am3517scepter"
+
+config SYS_VENDOR
+	default "ti"
+
+config SYS_CONFIG_NAME
+	default "am3517_scepter"
+
+endif

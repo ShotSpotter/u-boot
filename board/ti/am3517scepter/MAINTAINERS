@@ -1,0 +1,6 @@
+AM3517SCEPTER BOARD
+M:	Robert B. Calhoun <rcalhoun@shotspotter.com>
+S:	Maintained
+F:	board/ti/am3517scepter/
+F:	include/configs/am3517_scepter.h
+F:	configs/am3517_scepter_defconfig
