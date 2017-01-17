@@ -1,11 +1,11 @@
 /*
- * am3517crane.c - board file for AM3517 CraneBoard
+ * am3517scepter.c - board file for AM3517 Scepter
  *
- * Author: Srinath.R <srinath@mistralsolutions.com>
+ * Author: Robert B. Calhoun <rcalhoun@shotspotter.com>
  *
- * Based on logicpd/am3517evm/am3517evm.c
+ * Based on ti/am3517crane/am3517crane.c
  *
- * Copyright (C) 2011 Mistral Solutions Pvt Ltd
+ * Copyright (C) 2017 SST
  *
  * SPDX-License-Identifier:	GPL-2.0+
  */
@@ -18,7 +18,7 @@
 #include <asm/arch/sys_proto.h>
 #include <asm/mach-types.h>
 #include <i2c.h>
-#include "am3517crane.h"
+#include "am3517scepter.h"
 
 DECLARE_GLOBAL_DATA_PTR;
 
@@ -30,7 +30,7 @@ int board_init(void)
 {
 	gpmc_init(); /* in SRAM or SDRAM, finish GPMC */
 	/* board id for Linux */
-	gd->bd->bi_arch_number = MACH_TYPE_CRANEBOARD;
+	gd->bd->bi_arch_number = MACH_TYPE_SCEPTER;
 	/* boot param addr */
 	gd->bd->bi_boot_params = (OMAP34XX_SDRC_CS0 + 0x100);
 
@@ -60,12 +60,14 @@ int misc_init_r(void)
  */
 void set_muxconf_regs(void)
 {
-	MUX_AM3517CRANE();
+	MUX_AM3517SCEPTER();
 }
 
 #if defined(CONFIG_GENERIC_MMC) && !defined(CONFIG_SPL_BUILD)
 int board_mmc_init(bd_t *bis)
 {
 	return omap_mmc_init(0, 0, 0, -1, -1);
+	return omap_mmc_init(1, 0, 0, -1, -1);
+	return 0;
 }
 #endif

@@ -544,6 +544,7 @@
 #define MACH_TYPE_MX53_UMOBO           3927
 #define MACH_TYPE_MT4                  3981
 #define MACH_TYPE_U8520                3990
+#define MACH_TYPE_SCEPTER              4033
 #define MACH_TYPE_CHUPACABRA           4098
 #define MACH_TYPE_SCORPION             4099
 #define MACH_TYPE_DAVINCI_HE_HMI10     4100

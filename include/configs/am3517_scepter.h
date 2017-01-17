@@ -1,11 +1,11 @@
 /*
- * am3517_crane.h - Default configuration for AM3517 CraneBoard.
+ * am3517_scepter.h - Default configuration for AM3517 Scepter.
  *
- * Author: Srinath.R <srinath@mistralsolutions.com>
+ * Author: Robert B. Cahoun <rcalhoun@shotspotter.com>
  *
- * Based on include/configs/am3517evm.h
+ * Based on include/configs/am3517_crane.h
  *
- * Copyright (C) 2011 Mistral Solutions pvt Ltd
+ * Copyright (C) 2017
  *
  * SPDX-License-Identifier:	GPL-2.0+
  */
@@ -17,7 +17,7 @@
  * High Level Configuration Options
  */
 #define CONFIG_OMAP		1	/* in a TI OMAP core */
-#define CONFIG_OMAP3_AM3517CRANE	1	/* working with CRANEBOARD */
+#define CONFIG_OMAP3_AM3517SCEPTER	1	/* working with SCEPTER */
 /* Common ARM Erratas */
 #define CONFIG_ARM_ERRATA_454179
 #define CONFIG_ARM_ERRATA_430973
@@ -107,15 +107,15 @@
 #define CONFIG_USBD_VENDORID		0x0451
 #define CONFIG_USBD_PRODUCTID		0x5678
 #define CONFIG_USBD_MANUFACTURER	"Texas Instruments"
-#define CONFIG_USBD_PRODUCT_NAME	"AM3517CRANE"
+#define CONFIG_USBD_PRODUCT_NAME	"AM3517SCEPTER"
 #endif /* CONFIG_USB_MUSB_UDC */
 
 #endif /* CONFIG_USB_AM35X */
 
 /* commands to include */
 #define CONFIG_CMD_JFFS2	/* JFFS2 Support		*/
-
 #define CONFIG_CMD_NAND		/* NAND support			*/
+#define CONFIG_CMD_SETEXPR	/* simple math */
 
 #define CONFIG_SYS_NO_FLASH
 #define CONFIG_SYS_I2C
@@ -212,8 +212,9 @@
 /*-----------------------------------------------------------------------
  * Physical Memory Map
  */
-#define CONFIG_NR_DRAM_BANKS	2	/* CS1 may or may not be populated */
+#define CONFIG_NR_DRAM_BANKS	1	/* CS1 may or may not be populated */
 #define PHYS_SDRAM_1		OMAP34XX_SDRC_CS0
+#define PHYS_SDRAM_1_SIZE	(0x04000000)    /* from SRN "at least 64 MiB" */
 #define PHYS_SDRAM_2		OMAP34XX_SDRC_CS1
 
 /*-----------------------------------------------------------------------
@@ -233,7 +234,8 @@
 
 #define CONFIG_NAND_OMAP_GPMC
 #define CONFIG_ENV_IS_IN_NAND		1
-#define SMNAND_ENV_OFFSET		0x260000 /* environment starts here */
+#define GPMC_NAND_ECC_LP_x16_LAYOUT     1	/* SRN */
+#define SMNAND_ENV_OFFSET		0x240000 /* environment starts here */
 
 #define CONFIG_SYS_ENV_SECT_SIZE	(128 << 10)	/* 128 KiB sector */
 #define CONFIG_ENV_OFFSET		SMNAND_ENV_OFFSET
@@ -260,6 +262,7 @@
 #define CONFIG_SYS_INIT_SP_ADDR		(CONFIG_SYS_INIT_RAM_ADDR + \
 					 CONFIG_SYS_INIT_RAM_SIZE - \
 					 GENERATED_GBL_DATA_SIZE)
+#define CONFIG_SDRAM_MAX_SIZE           0x04000000 /* SRN 64M */
 
 /* Defines for SPL */
 #define CONFIG_SPL_FRAMEWORK
@@ -302,6 +305,8 @@
  * header. That is 0x800FFFC0--0x80100000 should not be used for any
  * other needs.
  */
+
+/* SRN has this at 0x80008000 */
 #define CONFIG_SYS_TEXT_BASE		0x80100000
 #define CONFIG_SYS_SPL_MALLOC_START	0x80208000
 #define CONFIG_SYS_SPL_MALLOC_SIZE	0x100000
