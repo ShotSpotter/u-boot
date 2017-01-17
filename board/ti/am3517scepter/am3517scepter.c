@@ -17,6 +17,7 @@
 #include <asm/arch/mux.h>
 #include <asm/arch/sys_proto.h>
 #include <asm/mach-types.h>
+#include <linux/mtd/nand.h>
 #include <i2c.h>
 #include "am3517scepter.h"
 
@@ -28,6 +29,7 @@ DECLARE_GLOBAL_DATA_PTR;
  */
 int board_init(void)
 {
+  printf("board_init\n");
 	gpmc_init(); /* in SRAM or SDRAM, finish GPMC */
 	/* board id for Linux */
 	gd->bd->bi_arch_number = MACH_TYPE_SCEPTER;
@@ -62,6 +64,42 @@ void set_muxconf_regs(void)
 {
 	MUX_AM3517SCEPTER();
 }
+
+#ifdef CONFIG_SPL_BUILD
+/*
+ * Routine: get_board_mem_timings
+ * Description: If we use SPL then there is no x-loader nor config header
+ * so we have to setup the DDR timings ourself on the first bank.  This
+ * provides the timing values back to the function that configures
+ * the memory.
+ */
+void get_board_mem_timings(struct board_sdrc_timings *timings)
+{
+	int pop_mfr, pop_id;
+
+	/*
+	 * We need to identify what PoP memory is on the board so that
+	 * we know what timings to use.  To map the ID values please see
+	 * nand_ids.c
+	 */
+	identify_nand_chip(&pop_mfr, &pop_id);
+
+	if (pop_mfr == NAND_MFR_HYNIX && pop_id == 0xbc) {
+		/* 256MB DDR */
+		timings->mcfg = HYNIX_V_MCFG_200(256 << 20);
+		timings->ctrla = HYNIX_V_ACTIMA_200;
+		timings->ctrlb = HYNIX_V_ACTIMB_200;
+	} else {
+		/* 128MB DDR */
+		timings->mcfg = MICRON_V_MCFG_165(128 << 20);
+		timings->ctrla = MICRON_V_ACTIMA_165;
+		timings->ctrlb = MICRON_V_ACTIMB_165;
+	}
+	timings->rfr_ctrl = SDP_3430_SDRC_RFR_CTRL_165MHz;
+	timings->mr = MICRON_V_MR_165;
+}
+#endif
+
 
 #if defined(CONFIG_GENERIC_MMC) && !defined(CONFIG_SPL_BUILD)
 int board_mmc_init(bd_t *bis)
