@@ -23,6 +23,18 @@
 
 DECLARE_GLOBAL_DATA_PTR;
 
+/******************************************************
+ * Routine: delay
+ * Description: spinning delay to use before udelay works
+ ******************************************************/
+
+static inline void delay(unsigned long loops)
+{
+  __asm__ volatile ("1:\n" "subs %0, %1, #1\n"
+		    "bne 1b" : "=r" (loops) : "0"(loops));
+}
+
+
 /*
  * Routine: board_init
  * Description: Early hardware init.
@@ -62,7 +74,7 @@ int misc_init_r(void)
  */
 void set_muxconf_regs(void)
 {
-	MUX_AM3517SCEPTER();
+  MUX_AM3517SCEPTER();
 }
 
 #ifdef CONFIG_SPL_BUILD
@@ -75,20 +87,14 @@ void set_muxconf_regs(void)
  */
 void get_board_mem_timings(struct board_sdrc_timings *timings)
 {
+  delay(5000);
+  /* 64MB DDR */
+  timings->mcfg = MICRON_V_MCFG_165(64 << 20);
+  timings->ctrla = MICRON_V_ACTIMA_165;
+  timings->ctrlb = MICRON_V_ACTIMB_165;
 
-	/*
-	 * We need to identify what PoP memory is on the board so that
-	 * we know what timings to use.  To map the ID values please see
-	 * nand_ids.c
-	 */
-
-	/* 64MB DDR */
-	timings->mcfg = MICRON_V_MCFG_165(64 << 20);
-	timings->ctrla = MICRON_V_ACTIMA_165;
-	timings->ctrlb = MICRON_V_ACTIMB_165;
-
-	timings->rfr_ctrl = SDP_3430_SDRC_RFR_CTRL_165MHz;
-	timings->mr = MICRON_V_MR_165;
+  timings->rfr_ctrl = SDP_3430_SDRC_RFR_CTRL_165MHz;
+  timings->mr = MICRON_V_MR_165;
 }
 #endif
 
