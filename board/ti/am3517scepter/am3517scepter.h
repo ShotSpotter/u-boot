@@ -181,8 +181,8 @@ MUX_VAL(CP(MCSPI2_CS0), (IEN | PTD | EN | M7 )) /* gpt11_pwm_evt, FRAME_SYNC_819
 MUX_VAL(CP(MCSPI2_CS1), (IEN | PTD | EN | M7 )) /* safe_mode, NC*/\
 MUX_VAL(CP(MCSPI2_SIMO), (IEN | PTD | DIS | M7 )) /* safe_mode, NC*/\
 MUX_VAL(CP(MCSPI2_SOMI), (IEN | PTD | DIS | M7 )) /* gpt10_pwm_evt, GPS_1PPS*/\
-MUX_VAL(CP(MMC1_CLK), (IEN | PTU | EN | M0 )) /* mmc1_clk, CPU_MMC1_CLK*/\
-MUX_VAL(CP(MMC1_CMD), (IEN | PTU | DIS | M0 )) /* mmc1_cmd, CPU_MMC1_CMD*/\
+MUX_VAL(CP(MMC1_CLK),  (IEN | PTU | EN | M0 )) /* mmc1_clk, CPU_MMC1_CLK*/\
+MUX_VAL(CP(MMC1_CMD),  (IEN | PTU | DIS | M0 )) /* mmc1_cmd, CPU_MMC1_CMD*/\
 MUX_VAL(CP(MMC1_DAT0), (IEN | PTU | DIS | M0 )) /* mmc1_dat0, CPU_MMC1_DAT0*/\
 MUX_VAL(CP(MMC1_DAT1), (IEN | PTU | DIS | M0 )) /* mmc1_dat1, CPU_MMC1_DAT1*/\
 MUX_VAL(CP(MMC1_DAT2), (IEN | PTU | DIS | M0 )) /* mmc1_dat2, CPU_MMC1_DAT2*/\
@@ -191,15 +191,15 @@ MUX_VAL(CP(MMC1_DAT4), (IEN | PTD | EN | M4 )) /* gpio_126, BD_REV0*/\
 MUX_VAL(CP(MMC1_DAT5), (IEN | PTD | EN | M4 )) /* gpio_127, BD_REV1*/\
 MUX_VAL(CP(MMC1_DAT6), (IDIS | PTD | DIS | M4 )) /* gpio_128, CPU_PWRON_ADC*/\
 MUX_VAL(CP(MMC1_DAT7), (IEN | PTD | EN | M4 )) /* gpio_129, INTR_CARD_DET*/\
-MUX_VAL(CP(MMC2_CLK), (IEN | PTU | EN | M0 )) /* mmc2_clk, CPU_MMC2_CLK*/\
-MUX_VAL(CP(MMC2_CMD), (IEN | PTU | EN | M0 )) /* mmc2_cmd, CPU_MMC2_CMD*/\
-MUX_VAL(CP(MMC2_DAT0), (IEN | PTU | EN | M0 )) /* mmc2_dat0, CPU_MMC2_DAT0*/\
-MUX_VAL(CP(MMC2_DAT1), (IEN | PTU | EN | M0 )) /* mmc2_dat1, CPU_MMC2_DAT1*/\
-MUX_VAL(CP(MMC2_DAT2), (IEN | PTU | EN | M0 )) /* mmc2_dat2, CPU_MMC2_DAT2*/\
-MUX_VAL(CP(MMC2_DAT3), (IEN | PTU | EN | M0 )) /* mmc2_dat3, CPU_MMC2_DAT3*/\
-MUX_VAL(CP(MMC2_DAT4), (IEN | PTD | EN | M1 )) /* HY-DBG: MMC2_DIR_DAT0 gpio_136, BD_REV2*/\
-MUX_VAL(CP(MMC2_DAT5), (IEN | PTD | EN | M1 )) /* HY-DBG: MMC2_DIR_DAT1 gpio_137, BD_REV3*/\
-MUX_VAL(CP(MMC2_DAT6), (IEN | PTU | EN | M1 )) /* HY-DBG: MMC2_DIR_CMD gpio_138, SD_CARD2_DET*/\
+MUX_VAL(CP(MMC2_CLK),  (IEN | PTU | EN | M0 )) /* mmc2_clk, CPU_MMC2_CLK*/\
+MUX_VAL(CP(MMC2_CMD),  (IEN | PTU | DIS | M0 )) /* mmc2_cmd, CPU_MMC2_CMD*/\
+MUX_VAL(CP(MMC2_DAT0), (IEN | PTU | DIS | M0 )) /* mmc2_dat0, CPU_MMC2_DAT0*/\
+MUX_VAL(CP(MMC2_DAT1), (IEN | PTU | DIS | M0 )) /* mmc2_dat1, CPU_MMC2_DAT1*/\
+MUX_VAL(CP(MMC2_DAT2), (IEN | PTU | DIS | M0 )) /* mmc2_dat2, CPU_MMC2_DAT2*/\
+MUX_VAL(CP(MMC2_DAT3), (IEN | PTU | DIS | M0 )) /* mmc2_dat3, CPU_MMC2_DAT3*/\
+MUX_VAL(CP(MMC2_DAT4), (IDIS | PTD | EN | M1 )) /* HY-DBG: MMC2_DIR_DAT0 gpio_136, BD_REV2*/\
+MUX_VAL(CP(MMC2_DAT5), (IDIS | PTD | EN | M1 )) /* HY-DBG: MMC2_DIR_DAT1 gpio_137, BD_REV3*/\
+MUX_VAL(CP(MMC2_DAT6), (IDIS | PTU | EN | M1 )) /* HY-DBG: MMC2_DIR_CMD gpio_138, SD_CARD2_DET*/ \
 MUX_VAL(CP(MMC2_DAT7), (IEN | PTU | EN | M1 )) /* mmc2_clkin, MMC2_CLKIN*/\
 MUX_VAL(CP(RMII_50MHZ_CLK), (IEN | PTD | EN | M0 )) /* rmii_50mhz_clk, RMII_50MHZ_CLK*/\
 MUX_VAL(CP(RMII_CRS_DV), (IEN | PTD | DIS | M0 )) /* rmii_crs_dv, CPU_RMII_CRS_DV*/\
