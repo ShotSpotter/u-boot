@@ -75,26 +75,18 @@ void set_muxconf_regs(void)
  */
 void get_board_mem_timings(struct board_sdrc_timings *timings)
 {
-	int pop_mfr, pop_id;
 
 	/*
 	 * We need to identify what PoP memory is on the board so that
 	 * we know what timings to use.  To map the ID values please see
 	 * nand_ids.c
 	 */
-	identify_nand_chip(&pop_mfr, &pop_id);
 
-	if (pop_mfr == NAND_MFR_HYNIX && pop_id == 0xbc) {
-		/* 256MB DDR */
-		timings->mcfg = HYNIX_V_MCFG_200(256 << 20);
-		timings->ctrla = HYNIX_V_ACTIMA_200;
-		timings->ctrlb = HYNIX_V_ACTIMB_200;
-	} else {
-		/* 128MB DDR */
-		timings->mcfg = MICRON_V_MCFG_165(128 << 20);
-		timings->ctrla = MICRON_V_ACTIMA_165;
-		timings->ctrlb = MICRON_V_ACTIMB_165;
-	}
+	/* 64MB DDR */
+	timings->mcfg = MICRON_V_MCFG_165(64 << 20);
+	timings->ctrla = MICRON_V_ACTIMA_165;
+	timings->ctrlb = MICRON_V_ACTIMB_165;
+
 	timings->rfr_ctrl = SDP_3430_SDRC_RFR_CTRL_165MHz;
 	timings->mr = MICRON_V_MR_165;
 }
