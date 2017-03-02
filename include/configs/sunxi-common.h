@@ -140,7 +140,6 @@
 
 /* mmc config */
 #ifdef CONFIG_MMC
-#define CONFIG_GENERIC_MMC
 #define CONFIG_MMC_SUNXI_SLOT		0
 #define CONFIG_ENV_IS_IN_MMC
 #define CONFIG_SYS_MMC_ENV_DEV		0	/* first detected MMC controller */
@@ -170,8 +169,6 @@
 #define CONFIG_STACKSIZE		(256 << 10)	/* 256 KiB */
 
 /* FLASH and environment organization */
-
-#define CONFIG_SYS_NO_FLASH
 
 #define CONFIG_SYS_MONITOR_LEN		(768 << 10)	/* 768 KiB */
 
@@ -338,7 +335,6 @@ extern int soft_i2c_gpio_scl;
 
 #ifdef CONFIG_MMC
 #define CONFIG_FASTBOOT_FLASH_MMC_DEV	0
-#define CONFIG_EFI_PARTITION
 #endif
 #endif
 

@@ -24,6 +24,21 @@
 	(&((struct bcm2835_timer_regs *)BCM2835_TIMER_PHYSADDR)->clo)
 #endif
 
+/*
+ * 2835 is a SKU in a series for which the 2708 is the first or primary SoC,
+ * so 2708 has historically been used rather than a dedicated 2835 ID.
+ *
+ * We don't define a machine type for bcm2709/bcm2836 since the RPi Foundation
+ * chose to use someone else's previously registered machine ID (3139, MX51_GGC)
+ * rather than obtaining a valid ID:-/
+ *
+ * For the bcm2837, hopefully a machine type is not needed, since everything
+ * is DT.
+ */
+#ifdef CONFIG_BCM2835
+#define CONFIG_MACH_TYPE		MACH_TYPE_BCM2708
+#endif
+
 /* Memory layout */
 #define CONFIG_NR_DRAM_BANKS		1
 #define CONFIG_SYS_SDRAM_BASE		0x00000000
@@ -48,9 +63,6 @@
 #define CONFIG_SYS_MEMTEST_END		0x00200000
 #define CONFIG_LOADADDR			0x00200000
 
-/* Flash */
-#define CONFIG_SYS_NO_FLASH
-
 /* Devices */
 /* GPIO */
 #define CONFIG_BCM2835_GPIO
@@ -65,9 +77,6 @@
 #define CONFIG_FB_ADDR			0
 #define CONFIG_VIDEO_BCM2835
 #define CONFIG_SYS_WHITE_ON_BLACK
-
-/* SD/MMC configuration */
-#define CONFIG_GENERIC_MMC
 
 #ifdef CONFIG_CMD_USB
 #define CONFIG_USB_DWC2
@@ -111,10 +120,6 @@
 /* Shell */
 #define CONFIG_SYS_MAXARGS		16
 #define CONFIG_COMMAND_HISTORY
-
-/* Commands */
-#define CONFIG_PARTITION_UUIDS
-#define CONFIG_CMD_PART
 
 /* ATAGs support for bootm/bootz */
 #define CONFIG_SETUP_MEMORY_TAGS

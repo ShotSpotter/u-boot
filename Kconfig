@@ -57,6 +57,7 @@ config DISTRO_DEFAULTS
 	bool "Select defaults suitable for booting general purpose Linux distributions"
 	default y if ARCH_SUNXI || TEGRA
 	default y if ARCH_LS2080A
+	default y if ARCH_MESON
 	default y if ARCH_ROCKCHIP
 	default n
 	select CMD_BOOTZ if ARM && !ARM64
@@ -69,6 +70,7 @@ config DISTRO_DEFAULTS
 	select CMD_FS_GENERIC
 	select CMD_MII
 	select CMD_PING
+	select CMD_PART
 	select HUSH_PARSER
 	help
 	  Select this to enable various options and commands which are suitable
@@ -306,9 +308,13 @@ config ARCH_FIXUP_FDT_MEMORY
 
 endmenu		# Boot images
 
+source "api/Kconfig"
+
 source "common/Kconfig"
 
 source "cmd/Kconfig"
+
+source "disk/Kconfig"
 
 source "dts/Kconfig"
 
@@ -321,3 +327,5 @@ source "fs/Kconfig"
 source "lib/Kconfig"
 
 source "test/Kconfig"
+
+source "scripts/Kconfig"

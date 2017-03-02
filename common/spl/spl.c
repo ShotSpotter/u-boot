@@ -167,14 +167,6 @@ __weak void __noreturn jump_to_image_no_args(struct spl_image_info *spl_image)
 		(image_entry_noargs_t)spl_image->entry_point;
 
 	debug("image entry point: 0x%lX\n", spl_image->entry_point);
-#if defined(CONFIG_ARMV8_SPIN_TABLE) && defined(CONFIG_ARMV8_MULTIENTRY)
-	/*
-	 * Release all slave cores from CPU_RELEASE_ADDR so they could
-	 * arrive to the spin-table code in start.S of the u-boot
-	 */
-	*(ulong *)CPU_RELEASE_ADDR = (ulong)spl_image->entry_point;
-#endif
-
 	image_entry();
 }
 
@@ -183,7 +175,12 @@ int spl_init(void)
 	int ret;
 
 	debug("spl_init()\n");
-#if defined(CONFIG_SYS_MALLOC_F_LEN)
+/*
+ * with CONFIG_SPL_STACK_R_MALLOC_SIMPLE_LEN we set malloc_base and
+ * malloc_limit in spl_relocate_stack_gd
+ */
+#if defined(CONFIG_SYS_MALLOC_F_LEN) && \
+	!defined(CONFIG_SPL_STACK_R_MALLOC_SIMPLE_LEN)
 #ifdef CONFIG_MALLOC_F_ADDR
 	gd->malloc_base = CONFIG_MALLOC_F_ADDR;
 #endif
@@ -266,7 +263,7 @@ static int boot_from_devices(struct spl_image_info *spl_image,
 		loader = spl_ll_find_loader(spl_boot_list[i]);
 #if defined(CONFIG_SPL_SERIAL_SUPPORT) && defined(CONFIG_SPL_LIBCOMMON_SUPPORT)
 		if (loader)
-			printf("Trying to boot from %s", loader->name);
+			printf("Trying to boot from %s\n", loader->name);
 		else
 			puts("SPL: Unsupported Boot Device!\n");
 #endif
@@ -339,7 +336,7 @@ void board_init_r(gd_t *dummy1, ulong dummy2)
 	      gd->malloc_ptr / 1024);
 #endif
 
-	debug("loaded - jumping to U-Boot...");
+	debug("loaded - jumping to U-Boot...\n");
 	spl_board_prepare_for_boot();
 	jump_to_image_no_args(&spl_image);
 }

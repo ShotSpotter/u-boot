@@ -17,12 +17,6 @@
 #ifndef __CONFIG_TI_ARMV7_COMMON_H__
 #define __CONFIG_TI_ARMV7_COMMON_H__
 
-/*
- * We typically do not contain NOR flash.  In the cases where we do, we
- * undefine this later.
- */
-#define CONFIG_SYS_NO_FLASH
-
 /* Support both device trees and ATAGs. */
 #define CONFIG_CMDLINE_TAG
 #define CONFIG_SETUP_MEMORY_TAGS
@@ -166,9 +160,6 @@
 #define CONFIG_DM_I2C_COMPAT
 #endif
 
-/* MMC/SD IP block */
-#define CONFIG_GENERIC_MMC
-
 /* McSPI IP block */
 #define CONFIG_SPI
 
@@ -221,10 +212,7 @@
  * enabled a number of useful commands and support.
  */
 #if defined(CONFIG_MMC) || defined(CONFIG_USB_STORAGE)
-#define CONFIG_DOS_PARTITION
 #define CONFIG_FAT_WRITE
-#define CONFIG_PARTITION_UUIDS
-#define CONFIG_CMD_PART
 #endif
 
 /*

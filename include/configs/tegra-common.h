@@ -54,12 +54,6 @@
 /* turn on command-line edit/hist/auto */
 #define CONFIG_COMMAND_HISTORY
 
-/* turn on commonly used storage-related commands */
-#define CONFIG_PARTITION_UUIDS
-#define CONFIG_CMD_PART
-
-#define CONFIG_SYS_NO_FLASH
-
 /*
  * Increasing the size of the IO buffer as default nfsargs size is more
  *  than 256 and so it is not possible to edit it
@@ -103,9 +97,6 @@
 #define CONFIG_SPL_MAX_FOOTPRINT	(CONFIG_SYS_TEXT_BASE - \
 						CONFIG_SPL_TEXT_BASE)
 #define CONFIG_SYS_SPL_MALLOC_SIZE	0x00010000
-
-#define CONFIG_BOARD_EARLY_INIT_F
-#define CONFIG_BOARD_LATE_INIT
 
 /* Misc utility code */
 #define CONFIG_BOUNCE_BUFFER

@@ -284,14 +284,7 @@ int mac_read_from_eeprom(void);
 extern u8 __dtb_dt_begin[];	/* embedded device tree blob */
 int set_cpu_clk_info(void);
 int mdm_init(void);
-#if defined(CONFIG_DISPLAY_CPUINFO)
 int print_cpuinfo(void);
-#else
-static inline int print_cpuinfo(void)
-{
-	return 0;
-}
-#endif
 int update_flash_size(int flash_size);
 int arch_early_init_r(void);
 
@@ -352,9 +345,6 @@ int	source (ulong addr, const char *fit_uname);
 extern ulong load_addr;		/* Default Load Address */
 extern ulong save_addr;		/* Default Save Address */
 extern ulong save_size;		/* Default Save Size */
-
-/* common/cmd_doc.c */
-void	doc_probe(unsigned long physadr);
 
 /* common/cmd_net.c */
 int do_tftpb(cmd_tbl_t *cmdtp, int flag, int argc, char * const argv[]);
@@ -600,7 +590,17 @@ int	cpu_num_dspcores(void);
 u32	cpu_mask      (void);
 u32	cpu_dsp_mask(void);
 int	is_core_valid (unsigned int);
-int	probecpu      (void);
+
+/**
+ * arch_cpu_init() - basic cpu-dependent setup for an architecture
+ *
+ * This is called after early malloc is available. It should handle any
+ * CPU- or SoC- specific init needed to continue the init sequence. See
+ * board_f.c for where it is called. If this is not provided, a default
+ * version (which does nothing) will be used.
+ */
+int arch_cpu_init(void);
+
 int	checkcpu      (void);
 int	checkicache   (void);
 int	checkdcache   (void);
@@ -911,7 +911,7 @@ static inline struct in_addr getenv_ip(char *var)
 
 int	pcmcia_init (void);
 
-#ifdef CONFIG_STATUS_LED
+#ifdef CONFIG_LED_STATUS
 # include <status_led.h>
 #endif
 

@@ -17,6 +17,11 @@
 #define CONFIG_SKIP_LOWLEVEL_INIT	/* disable board lowlevel_init */
 
 /*
+ * Machine type
+ */
+#define CONFIG_MACH_TYPE	MACH_TYPE_ICONNECT
+
+/*
  * Compression configuration
  */
 #define CONFIG_BZIP2
@@ -26,7 +31,6 @@
 /*
  * Commands configuration
  */
-#define CONFIG_SYS_NO_FLASH		/* declare no flash (NOR/SPI) */
 #define CONFIG_SYS_MVFS
 #define CONFIG_CMD_ENV
 #define CONFIG_CMD_NAND

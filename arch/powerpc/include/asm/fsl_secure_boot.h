@@ -9,11 +9,6 @@
 #include <asm/config_mpc85xx.h>
 
 #ifdef CONFIG_SECURE_BOOT
-
-#ifndef CONFIG_FIT_SIGNATURE
-#define CONFIG_CHAIN_OF_TRUST
-#endif
-
 #if defined(CONFIG_FSL_CORENET)
 #define CONFIG_SYS_PBI_FLASH_BASE		0xc0000000
 #elif defined(CONFIG_TARGET_BSC9132QDS)
@@ -119,9 +114,6 @@
  * fsl_setenv_chain_of_trust() must be called from
  * board_late_init()
  */
-#ifndef CONFIG_BOARD_LATE_INIT
-#define CONFIG_BOARD_LATE_INIT
-#endif
 
 /* If Boot Script is not on NOR and is required to be copied on RAM */
 #ifdef CONFIG_BOOTSCRIPT_COPY_RAM
